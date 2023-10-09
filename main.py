@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.responses import JSONResponse
 
 from bot.admin import admin_router
+from bot.users import users_router
 
 load_dotenv()
 app = FastAPI(docs_url=None, redoc_url=None)
@@ -32,6 +33,7 @@ async def startup():
             url=WEBHOOK_URL
         )
     dp.include_router(admin_router)
+    dp.include_router(users_router)
 
 
 @app.post(f'/{WEBHOOK_PATH}')

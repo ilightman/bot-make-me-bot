@@ -1,12 +1,18 @@
 import os
 
 from aiogram import Router
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, CommandObject
 from aiogram.types import Message
 
 from bot import texts
 
 users_router = Router()
+
+
+@users_router.message(CommandStart(deep_link=True))
+async def get_user_info(message: Message, command: CommandObject):
+    args = command.args
+    await message.answer(args)
 
 
 @users_router.message(CommandStart())

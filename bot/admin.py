@@ -10,13 +10,15 @@ from bot.filters import ChatTypeFilter
 
 admin_router = Router()
 
+admin_id = int(os.getenv('ADMIN'))
 
-@admin_router.message(F.from_user.id == os.getenv('ADMIN'), Command("help"), ChatTypeFilter(chat_type=['private']))
+
+@admin_router.message(F.from_user.id == admin_id, Command("help"), ChatTypeFilter(chat_type=['private']))
 async def admin_start(message: Message) -> None:
     await message.answer('help admin')
 
 
-@admin_router.message(F.from_user.id == os.getenv('ADMIN'))
+@admin_router.message(F.from_user.id == admin_id)
 async def any_message_from_admin(message: Message):
     await message.answer('any message')
 
